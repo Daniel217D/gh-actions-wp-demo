@@ -1,0 +1,33 @@
+name: PHPunit
+
+on: [workflow_dispatch]
+
+jobs:
+  run:    
+    runs-on: ${{ matrix.operating-system }}
+    strategy:      
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ['7.2']
+    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v1
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extension-csv: mbstring, intl #optional, setup extensions
+        ini-values-csv: post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
+        coverage: xdebug #optional, setup coverage driver
+        pecl: false #optional, setup PECL
+
+    -   name: Install wp
+        run: |
+            curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+            php wp-cli.phar core download --path=./wp
+            php wp-cli.phar config create --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=localhost --dbprefix=wptests_
+            php wp-cli.phar db create
+            php wp-cli.phar install --url=wpclidemo.dev --title="WP-CLI" --admin_user=wpcli --admin_password=wpcli --admin_email=info@wp-cli.org
+            php wp-cli.phar option get siteurl
