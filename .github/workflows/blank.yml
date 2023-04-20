@@ -38,7 +38,7 @@ jobs:
             php wp-cli.phar db create
             php wp-cli.phar db check
             echo 3
-            php wp-cli.phar install --url=wpclidemo.dev --title="WP-CLI" --admin_user=wpcli --admin_password=wpcli --admin_email=info@wp-cli.org
+            sudo php wp-cli.phar install --url=wpclidemo.dev --title="WP-CLI" --admin_user=wpcli --admin_password=wpcli --admin_email=info@wp-cli.org
             echo 4
             php wp-cli.phar option get siteurl
             echo 5
