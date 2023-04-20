@@ -22,7 +22,11 @@ jobs:
         ini-values-csv: post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
         coverage: xdebug #optional, setup coverage driver
         pecl: false #optional, setup PECL
-
+        
+    -   name: Set up MySQL
+        run: |
+            sudo /etc/init.d/mysql start
+            
     -   name: Install wp
         run: |
             curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
