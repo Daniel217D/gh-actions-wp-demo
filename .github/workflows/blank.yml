@@ -37,6 +37,8 @@ jobs:
             echo 2
             php wp-cli.phar db create
             php wp-cli.phar db check
+            echo 30
+            mysql --user="root" --password="root" --execute='show databases;'
             echo 31
             php wp-cli.phar db query 'SHOW TABLES' --allow-root
             echo 32
