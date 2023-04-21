@@ -13,28 +13,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v1
-      with:
-        php-version: ${{ matrix.php-versions }}
-        extension-csv: mbstring, intl #optional, setup extensions
-        ini-values-csv: post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
-        coverage: xdebug #optional, setup coverage driver
-        pecl: false #optional, setup PECL
-        
-    - name: Shutdown Ubuntu MySQL (SUDO)
-      run: sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
-    
-    - uses: mirromutth/mysql-action@v1.1
-      name: Run MySQL
-      with:
-        #mysql version: '5.7' # Optional, default value is "latest". The version of the MySQL
-        mysql user: 'root' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
-        mysql password: 'root' # Required if "mysql user" exists. The password for the "mysql user"
     
     -   name: Install wp
         run: |
+            php -v
             echo Test db connection
             mysql --user="root" --password="root" --execute='show databases;'
             curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
