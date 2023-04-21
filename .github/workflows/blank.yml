@@ -23,11 +23,10 @@ jobs:
         coverage: xdebug #optional, setup coverage driver
         pecl: false #optional, setup PECL
     
-    - uses: shogo82148/actions-setup-mysql@v1
-      with:
-          mysql-version: '8.0'
-          user: 'root'
-          password: 'root'
+    - name: Start Mysql
+      run: |
+        sudo /etc/init.d/mysql start
+        mysql -u root --password=root -e "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));"
     
     -   name: Install wp
         run: |
@@ -39,6 +38,7 @@ jobs:
             echo 1
             php wp-cli.phar config create --dbname=wordpress_test --dbuser=root --dbpass=root --dbhost=127.0.0.1 --dbprefix=wptests_
             ls
+            sed -n l ./wp-config.php
             echo 2
             php wp-cli.phar db create
             php wp-cli.phar db check
