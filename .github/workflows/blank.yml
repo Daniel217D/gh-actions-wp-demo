@@ -41,13 +41,13 @@ jobs:
             sed -n l ./wp-config.php
             echo 2
             php wp-cli.phar db create
-            php wp-cli.phar db check
+            php wp-cli.phar db check --debug
             echo 30
             mysql --user="root" --password="root" --execute='show databases;'
             echo 31
-            php wp-cli.phar db query 'SHOW TABLES' --allow-root
+            php wp-cli.phar db query 'SHOW TABLES' --allow-root --debug
             echo 32
-            php wp-cli.phar db tables
+            php wp-cli.phar db tables --debug
             echo 3
             php wp-cli.phar core install --url=wpclidemo.dev --title="WP-CLI" --admin_user=wpcli --admin_password=wpcli --admin_email=info@wp-cli.org
             echo 4
