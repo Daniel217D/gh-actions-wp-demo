@@ -35,6 +35,8 @@ jobs:
     
     -   name: Install wp
         run: |
+            echo Test db connection
+            mysql --user="root" --password="root" --execute='show databases;'
             curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
             php wp-cli.phar core download
             echo 1
