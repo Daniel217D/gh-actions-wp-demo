@@ -33,6 +33,7 @@ jobs:
             php -v
             echo Test db connection
             mysql --user="root" --password="root" --execute='show databases;'
+            mysql --user="root" --password="root" --execute="ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';"
             curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
             php wp-cli.phar core download
             echo 1
