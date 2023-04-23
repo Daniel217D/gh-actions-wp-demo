@@ -31,7 +31,7 @@ jobs:
     -   name: Install wp
         run: |            
             echo Download wp-cli
-            curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+            curl -s -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
             echo Download WordPress core
             php wp-cli.phar core download
