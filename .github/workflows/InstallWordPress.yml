@@ -1,4 +1,4 @@
-name: PHPunit
+name: InstallWordPress
 
 on: [workflow_dispatch]
 
